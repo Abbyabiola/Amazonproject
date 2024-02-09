@@ -25,7 +25,7 @@ pipeline {
             script{
                     withSonarQubeEnv('sonar-server') {
                         sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=amazon-app-deployment -Dsonar.projectName=amazon-app-deployment"
-
+                        sh "pwd"
                }
         }
 
