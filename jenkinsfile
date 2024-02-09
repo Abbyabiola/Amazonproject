@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    tools {
+      'node17'
+    }
+    enviroment {
+        SCANNER_HOME=tool 'sonar-scanner'
+        DOCKERHUB_CREDENTIALS=credentials('716274dc-f41e-4e10-9f58-f501c9063a39')
+        BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+    }
+
+    Stages {
+        stage('clean workspace'){
+            steps{
+                cleanWS()
+            }
+        }
+        stage('Git Checkout'){
+          steps{
+             git branch: 'master', url: 'https://github.com/Godhasdoneit/Amazonproject.git'
+          }
+
+        }
+        stage('SonarQube Analysis'){
+            script{
+                    withSonarQubeEnv('sonar-server') {
+                        sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=amazon-app-deployment -Dsonar.projectName=amazon-app-deployment"
+
+               }
+        }
+
+      }
+
+    } 
+
+}
