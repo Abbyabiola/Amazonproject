@@ -81,8 +81,6 @@ pipeline {
                     echo "Push Image to Registry"
                 }
             }
-        }
-        
-        
+        }       
     }
 }
