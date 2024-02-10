@@ -58,8 +58,7 @@ pipeline {
         }
         stage('Docker Build'){
             steps{
-                script{
-                   
+                script{                   
                    sh "docker build -t blesseddocker/amazon-app:latest ."
                    echo "Image Build Successfully"
                 }
@@ -67,16 +66,14 @@ pipeline {
         }
         stage('Trivy Image Scan'){
             steps{
-                script{
-                    
+                script{                    
                     sh "trivy image blesseddocker/amazon-app:latest"
                 }
             }
         }
         stage('Docker push'){
             steps{
-                script{
-                    
+                script{                    
                     sh "docker push blesseddocker/amazon-app:latest"
                     echo "Push Image to Registry"
                 }
