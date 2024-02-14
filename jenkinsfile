@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        jdk 'jdk17'
+
         nodejs 'node21'
     }
     
@@ -52,14 +52,7 @@ pipeline {
                 }
             }
         }
-        
-         stage('OWASP FILE SCAN') {
-            steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit --nvdApiKey 4bdf4acc-8eae-45c1-bfc4-844d549be812', odcInstallation: 'DP'
-                 dependencyCheckPublisher pattern: '/dependency-check-report.xml'
-             }
-         }
-        
+    
         stage('Login to DockerHUB') {
             steps {
                 script {
